@@ -15,8 +15,7 @@ app.get('/', (req, res) => {
 
 const cookbookRouter = require('./controllers/cookbookRoutes');
 app.use('/api/cookbooks/', cookbookRouter);
-
 const authorRouter = require('./controllers/authorRoutes');
 app.use('/api/authors/', authorRouter);
 
-app.listen(PORT, () => console.log('Server running on port', PORT));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
