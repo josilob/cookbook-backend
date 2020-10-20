@@ -6,8 +6,7 @@ const Cookbook = require('../models/Cookbook');
 
 // Route to list all cookbooks
 router.get('/', async (req, res) => {
-	const cookbooks = await Cookbook.find({});
-	res.json({ status: 200, data: cookbooks });
+	res.json(await Cookbook.find({}));
 });
 // Route to get cookbook by title
 router.get('/title/:title', async (req, res) => {
@@ -21,21 +20,16 @@ router.get('/year/:year', async (req, res) => {
 });
 // Route to create a cookbook
 router.post('/', async (req, res) => {
-	const cookbook = await Cookbook.create(req.body);
-	res.json({ status: 200, data: cookbook });
+	res.json(await Cookbook.create(req.body));
 });
 // Route to update a cookbook
-router.put('/', async (req, res) => {
-	const cookbook = await Cookbook.findOneAndUpdate(
-		{ title: 'cookbook from hell' },
-		{ title: 'dining in' },
-		{ new: true }
+router.put('/:id', async (req, res) => {
+	res.json(
+		await Cookbook.findByIdAndUpdate(req.params.id, req.body, { new: true })
 	);
-	res.json({ status: 200, msg: 'item updated', data: cookbook });
 });
 // Route to delete the cookbook by title
-router.delete('/:title', async (req, res) => {
-	const cookbook = await Cookbook.findOneAndDelete({ title: req.params.title });
-	res.json({ status: 200, msg: 'cookbook deleted' });
+router.delete('/:id', async (req, res) => {
+	res.json(await Cookbook.findByIdAndRemove(req.params.id));
 });
 module.exports = router;
