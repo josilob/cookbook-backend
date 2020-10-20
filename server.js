@@ -5,6 +5,8 @@ const logger = require('morgan');
 const { PORT } = process.env;
 app.use(logger('dev'));
 
+const cors = require('cors');
+app.use(cors());
 // Add the middleware code needed to accept incoming data and add it to req.body
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
